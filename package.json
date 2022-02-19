@@ -1,5 +1,5 @@
 {
-   "name": "sbl-open-records-api",
+   "name": "sbr-document-api",
    "version": "1.0.0",
    "description": "",
    "main": "src/index.js",

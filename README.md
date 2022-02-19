@@ -1,4 +1,4 @@
-# SBL-OPEN-RECORDS-API
+# sbr-document-api
 ## Running locally
 ```
 npm run generate
