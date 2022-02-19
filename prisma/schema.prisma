@@ -1,0 +1,78 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../prisma/generated/type-graphql"
+}
+
+model Document {
+  id             String      @id @default(cuid())
+  sbrId          String      @unique
+  orRequestor    String
+  orRequestDate  DateTime
+  fileName       String
+  pages          Int
+  path           String
+  beginDate      DateTime?
+  endDate        DateTime?
+  relevanceScore Int?
+  personnel      Personnel[]
+  topics         Topic[]
+  summary        String?
+  driveId        String
+  emailDetails   EmailDetails?
+  documentContent DocumentContent?
+}
+
+model EmailDetails {
+  id String @id @default(cuid())
+  subject String
+  bcc String?
+  from String
+  to String
+  cc String?
+  document Document @relation(fields: [documentId], references: [id])
+  documentId String
+}
+
+model DocumentContent {
+  id String @id @default(cuid())
+  text String
+  document Document @relation(fields: [documentId], references: [id])
+  documentId String
+}
+
+model Topic {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  documents Document[]
+}
+
+model Personnel {
+  id             String        @id @default(cuid())
+  firstName      String?
+  lastName       String?
+  email          String?
+  documents      Document[]
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+}
+
+model Organization {
+  id        String      @id @default(cuid())
+  name      String
+  personnel Personnel[]
+}
+
+model User {
+  id    String  @id @default(cuid())
+  email String  @unique
+  name  String?
+}
