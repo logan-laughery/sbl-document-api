@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.$connect();
 
+  await prisma.documentContent.deleteMany({});
+  await prisma.emailDetails.deleteMany({});
+  await prisma.personnel.deleteMany({});
   await prisma.document.deleteMany({});
 
   const document1 = await prisma.document.create({
