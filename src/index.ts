@@ -31,7 +31,7 @@ const startServer = async () => {
     app,
     path: "/",
     cors: {
-      "origin": "https://studio.apollographql.com",
+      "origin": true,
       "credentials": true
     },
   });

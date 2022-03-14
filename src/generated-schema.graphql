@@ -126,6 +126,7 @@ type Document {
   personnel(cursor: PersonnelWhereUniqueInput, distinct: [PersonnelScalarFieldEnum!], orderBy: [PersonnelOrderByWithRelationInput!], skip: Int, take: Int, where: PersonnelWhereInput): [Personnel!]!
   relevanceScore: Int
   sbrId: String!
+  summary: String
   topics(cursor: TopicWhereUniqueInput, distinct: [TopicScalarFieldEnum!], orderBy: [TopicOrderByWithRelationInput!], skip: Int, take: Int, where: TopicWhereInput): [Topic!]!
 }
 
@@ -143,26 +144,27 @@ type DocumentContent {
   document: Document!
   documentId: String!
   id: String!
-  text: String!
 }
 
 type DocumentContentCountAggregate {
   _all: Int!
   documentId: Int!
   id: Int!
-  text: Int!
 }
 
 input DocumentContentCountOrderByAggregateInput {
   documentId: SortOrder
   id: SortOrder
-  text: SortOrder
 }
 
 input DocumentContentCreateInput {
   document: DocumentCreateNestedOneWithoutDocumentContentInput!
   id: String
-  text: String!
+}
+
+input DocumentContentCreateManyInput {
+  documentId: String!
+  id: String
 }
 
 input DocumentContentCreateNestedOneWithoutDocumentInput {
@@ -178,7 +180,6 @@ input DocumentContentCreateOrConnectWithoutDocumentInput {
 
 input DocumentContentCreateWithoutDocumentInput {
   id: String
-  text: String!
 }
 
 type DocumentContentGroupBy {
@@ -187,31 +188,26 @@ type DocumentContentGroupBy {
   _min: DocumentContentMinAggregate
   documentId: String!
   id: String!
-  text: String!
 }
 
 type DocumentContentMaxAggregate {
   documentId: String
   id: String
-  text: String
 }
 
 input DocumentContentMaxOrderByAggregateInput {
   documentId: SortOrder
   id: SortOrder
-  text: SortOrder
 }
 
 type DocumentContentMinAggregate {
   documentId: String
   id: String
-  text: String
 }
 
 input DocumentContentMinOrderByAggregateInput {
   documentId: SortOrder
   id: SortOrder
-  text: SortOrder
 }
 
 input DocumentContentOrderByWithAggregationInput {
@@ -220,14 +216,12 @@ input DocumentContentOrderByWithAggregationInput {
   _min: DocumentContentMinOrderByAggregateInput
   documentId: SortOrder
   id: SortOrder
-  text: SortOrder
 }
 
 input DocumentContentOrderByWithRelationInput {
   document: DocumentOrderByWithRelationInput
   documentId: SortOrder
   id: SortOrder
-  text: SortOrder
 }
 
 input DocumentContentRelationFilter {
@@ -238,7 +232,6 @@ input DocumentContentRelationFilter {
 enum DocumentContentScalarFieldEnum {
   documentId
   id
-  text
 }
 
 input DocumentContentScalarWhereWithAggregatesInput {
@@ -247,18 +240,15 @@ input DocumentContentScalarWhereWithAggregatesInput {
   OR: [DocumentContentScalarWhereWithAggregatesInput!]
   documentId: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
-  text: StringWithAggregatesFilter
 }
 
 input DocumentContentUpdateInput {
   document: DocumentUpdateOneRequiredWithoutDocumentContentInput
   id: StringFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpdateManyMutationInput {
   id: StringFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpdateOneWithoutDocumentInput {
@@ -273,7 +263,6 @@ input DocumentContentUpdateOneWithoutDocumentInput {
 
 input DocumentContentUpdateWithoutDocumentInput {
   id: StringFieldUpdateOperationsInput
-  text: StringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpsertWithoutDocumentInput {
@@ -288,7 +277,6 @@ input DocumentContentWhereInput {
   document: DocumentRelationFilter
   documentId: StringFilter
   id: StringFilter
-  text: StringFilter
 }
 
 input DocumentContentWhereUniqueInput {
@@ -314,6 +302,7 @@ type DocumentCountAggregate {
   path: Int!
   relevanceScore: Int!
   sbrId: Int!
+  summary: Int!
 }
 
 input DocumentCountOrderByAggregateInput {
@@ -328,6 +317,7 @@ input DocumentCountOrderByAggregateInput {
   path: SortOrder
   relevanceScore: SortOrder
   sbrId: SortOrder
+  summary: SortOrder
 }
 
 input DocumentCreateInput {
@@ -345,7 +335,23 @@ input DocumentCreateInput {
   personnel: PersonnelCreateNestedManyWithoutDocumentsInput
   relevanceScore: Int
   sbrId: String!
+  summary: String
   topics: TopicCreateNestedManyWithoutDocumentsInput
+}
+
+input DocumentCreateManyInput {
+  beginDate: DateTime
+  driveId: String!
+  endDate: DateTime
+  fileName: String!
+  id: String
+  orRequestDate: DateTime!
+  orRequestor: String!
+  pages: Int!
+  path: String!
+  relevanceScore: Int
+  sbrId: String!
+  summary: String
 }
 
 input DocumentCreateNestedManyWithoutPersonnelInput {
@@ -406,6 +412,7 @@ input DocumentCreateWithoutDocumentContentInput {
   personnel: PersonnelCreateNestedManyWithoutDocumentsInput
   relevanceScore: Int
   sbrId: String!
+  summary: String
   topics: TopicCreateNestedManyWithoutDocumentsInput
 }
 
@@ -423,6 +430,7 @@ input DocumentCreateWithoutEmailDetailsInput {
   personnel: PersonnelCreateNestedManyWithoutDocumentsInput
   relevanceScore: Int
   sbrId: String!
+  summary: String
   topics: TopicCreateNestedManyWithoutDocumentsInput
 }
 
@@ -440,6 +448,7 @@ input DocumentCreateWithoutPersonnelInput {
   path: String!
   relevanceScore: Int
   sbrId: String!
+  summary: String
   topics: TopicCreateNestedManyWithoutDocumentsInput
 }
 
@@ -458,6 +467,7 @@ input DocumentCreateWithoutTopicsInput {
   personnel: PersonnelCreateNestedManyWithoutDocumentsInput
   relevanceScore: Int
   sbrId: String!
+  summary: String
 }
 
 type DocumentGroupBy {
@@ -477,6 +487,7 @@ type DocumentGroupBy {
   path: String!
   relevanceScore: Int
   sbrId: String!
+  summary: String
 }
 
 input DocumentListRelationFilter {
@@ -497,6 +508,7 @@ type DocumentMaxAggregate {
   path: String
   relevanceScore: Int
   sbrId: String
+  summary: String
 }
 
 input DocumentMaxOrderByAggregateInput {
@@ -511,6 +523,7 @@ input DocumentMaxOrderByAggregateInput {
   path: SortOrder
   relevanceScore: SortOrder
   sbrId: SortOrder
+  summary: SortOrder
 }
 
 type DocumentMinAggregate {
@@ -525,6 +538,7 @@ type DocumentMinAggregate {
   path: String
   relevanceScore: Int
   sbrId: String
+  summary: String
 }
 
 input DocumentMinOrderByAggregateInput {
@@ -539,6 +553,7 @@ input DocumentMinOrderByAggregateInput {
   path: SortOrder
   relevanceScore: SortOrder
   sbrId: SortOrder
+  summary: SortOrder
 }
 
 input DocumentOrderByRelationAggregateInput {
@@ -562,6 +577,7 @@ input DocumentOrderByWithAggregationInput {
   path: SortOrder
   relevanceScore: SortOrder
   sbrId: SortOrder
+  summary: SortOrder
 }
 
 input DocumentOrderByWithRelationInput {
@@ -579,6 +595,7 @@ input DocumentOrderByWithRelationInput {
   personnel: PersonnelOrderByRelationAggregateInput
   relevanceScore: SortOrder
   sbrId: SortOrder
+  summary: SortOrder
   topics: TopicOrderByRelationAggregateInput
 }
 
@@ -599,6 +616,7 @@ enum DocumentScalarFieldEnum {
   path
   relevanceScore
   sbrId
+  summary
 }
 
 input DocumentScalarWhereInput {
@@ -616,6 +634,7 @@ input DocumentScalarWhereInput {
   path: StringFilter
   relevanceScore: IntNullableFilter
   sbrId: StringFilter
+  summary: StringNullableFilter
 }
 
 input DocumentScalarWhereWithAggregatesInput {
@@ -633,6 +652,7 @@ input DocumentScalarWhereWithAggregatesInput {
   path: StringWithAggregatesFilter
   relevanceScore: IntNullableWithAggregatesFilter
   sbrId: StringWithAggregatesFilter
+  summary: StringNullableWithAggregatesFilter
 }
 
 type DocumentSumAggregate {
@@ -660,6 +680,7 @@ input DocumentUpdateInput {
   personnel: PersonnelUpdateManyWithoutDocumentsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
   topics: TopicUpdateManyWithoutDocumentsInput
 }
 
@@ -675,6 +696,7 @@ input DocumentUpdateManyMutationInput {
   path: StringFieldUpdateOperationsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
 }
 
 input DocumentUpdateManyWithWhereWithoutPersonnelInput {
@@ -753,6 +775,7 @@ input DocumentUpdateWithoutDocumentContentInput {
   personnel: PersonnelUpdateManyWithoutDocumentsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
   topics: TopicUpdateManyWithoutDocumentsInput
 }
 
@@ -770,6 +793,7 @@ input DocumentUpdateWithoutEmailDetailsInput {
   personnel: PersonnelUpdateManyWithoutDocumentsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
   topics: TopicUpdateManyWithoutDocumentsInput
 }
 
@@ -787,6 +811,7 @@ input DocumentUpdateWithoutPersonnelInput {
   path: StringFieldUpdateOperationsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
   topics: TopicUpdateManyWithoutDocumentsInput
 }
 
@@ -805,6 +830,7 @@ input DocumentUpdateWithoutTopicsInput {
   personnel: PersonnelUpdateManyWithoutDocumentsInput
   relevanceScore: NullableIntFieldUpdateOperationsInput
   sbrId: StringFieldUpdateOperationsInput
+  summary: NullableStringFieldUpdateOperationsInput
 }
 
 input DocumentUpsertWithWhereUniqueWithoutPersonnelInput {
@@ -847,6 +873,7 @@ input DocumentWhereInput {
   personnel: PersonnelListRelationFilter
   relevanceScore: IntNullableFilter
   sbrId: StringFilter
+  summary: StringNullableFilter
   topics: TopicListRelationFilter
 }
 
@@ -891,6 +918,16 @@ input EmailDetailsCreateInput {
   bcc: String
   cc: String
   document: DocumentCreateNestedOneWithoutEmailDetailsInput!
+  from: String!
+  id: String
+  subject: String!
+  to: String!
+}
+
+input EmailDetailsCreateManyInput {
+  bcc: String
+  cc: String
+  documentId: String!
   from: String!
   id: String
   subject: String!
@@ -1150,6 +1187,13 @@ type Mutation {
   createDocument(data: DocumentCreateInput!): Document!
   createDocumentContent(data: DocumentContentCreateInput!): DocumentContent!
   createEmailDetails(data: EmailDetailsCreateInput!): EmailDetails!
+  createManyDocument(data: [DocumentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyDocumentContent(data: [DocumentContentCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyEmailDetails(data: [EmailDetailsCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyOrganization(data: [OrganizationCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyPersonnel(data: [PersonnelCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyTopic(data: [TopicCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
+  createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createOrganization(data: OrganizationCreateInput!): Organization!
   createPersonnel(data: PersonnelCreateInput!): Personnel!
   createTopic(data: TopicCreateInput!): Topic!
@@ -1423,6 +1467,11 @@ input OrganizationCreateInput {
   personnel: PersonnelCreateNestedManyWithoutOrganizationInput
 }
 
+input OrganizationCreateManyInput {
+  id: String
+  name: String!
+}
+
 input OrganizationCreateNestedOneWithoutPersonnelInput {
   connect: OrganizationWhereUniqueInput
   connectOrCreate: OrganizationCreateOrConnectWithoutPersonnelInput
@@ -1584,6 +1633,26 @@ input PersonnelCreateInput {
   organization: OrganizationCreateNestedOneWithoutPersonnelInput
 }
 
+input PersonnelCreateManyInput {
+  email: String
+  firstName: String
+  id: String
+  lastName: String
+  organizationId: String
+}
+
+input PersonnelCreateManyOrganizationInput {
+  email: String
+  firstName: String
+  id: String
+  lastName: String
+}
+
+input PersonnelCreateManyOrganizationInputEnvelope {
+  data: [PersonnelCreateManyOrganizationInput!]!
+  skipDuplicates: Boolean
+}
+
 input PersonnelCreateNestedManyWithoutDocumentsInput {
   connect: [PersonnelWhereUniqueInput!]
   connectOrCreate: [PersonnelCreateOrConnectWithoutDocumentsInput!]
@@ -1594,6 +1663,7 @@ input PersonnelCreateNestedManyWithoutOrganizationInput {
   connect: [PersonnelWhereUniqueInput!]
   connectOrCreate: [PersonnelCreateOrConnectWithoutOrganizationInput!]
   create: [PersonnelCreateWithoutOrganizationInput!]
+  createMany: PersonnelCreateManyOrganizationInputEnvelope
 }
 
 input PersonnelCreateOrConnectWithoutDocumentsInput {
@@ -1769,6 +1839,7 @@ input PersonnelUpdateManyWithoutOrganizationInput {
   connect: [PersonnelWhereUniqueInput!]
   connectOrCreate: [PersonnelCreateOrConnectWithoutOrganizationInput!]
   create: [PersonnelCreateWithoutOrganizationInput!]
+  createMany: PersonnelCreateManyOrganizationInputEnvelope
   delete: [PersonnelWhereUniqueInput!]
   deleteMany: [PersonnelScalarWhereInput!]
   disconnect: [PersonnelWhereUniqueInput!]
@@ -1871,6 +1942,11 @@ type Query {
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
 }
 
+enum QueryMode {
+  default
+  insensitive
+}
+
 enum SortOrder {
   asc
   desc
@@ -1889,6 +1965,7 @@ input StringFilter {
   in: [String!]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringFilter
   notIn: [String!]
   startsWith: String
@@ -1903,6 +1980,7 @@ input StringNullableFilter {
   in: [String!]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringNullableFilter
   notIn: [String!]
   startsWith: String
@@ -1920,6 +1998,7 @@ input StringNullableWithAggregatesFilter {
   in: [String!]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringNullableWithAggregatesFilter
   notIn: [String!]
   startsWith: String
@@ -1937,6 +2016,7 @@ input StringWithAggregatesFilter {
   in: [String!]
   lt: String
   lte: String
+  mode: QueryMode
   not: NestedStringWithAggregatesFilter
   notIn: [String!]
   startsWith: String
@@ -1966,6 +2046,11 @@ input TopicCountOrderByAggregateInput {
 
 input TopicCreateInput {
   documents: DocumentCreateNestedManyWithoutTopicsInput
+  id: String
+  name: String!
+}
+
+input TopicCreateManyInput {
   id: String
   name: String!
 }
@@ -2138,6 +2223,12 @@ input UserCountOrderByAggregateInput {
 }
 
 input UserCreateInput {
+  email: String!
+  id: String
+  name: String
+}
+
+input UserCreateManyInput {
   email: String!
   id: String
   name: String

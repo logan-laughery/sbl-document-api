@@ -36,7 +36,8 @@
    "scripts": {
       "start": "ts-node-dev --respawn src/index.ts",
       "generate": "prisma generate",
-      "migrate": "prisma migrate dev --name initialize",
+      "create-migration": "prisma migrate dev --create-only",
+      "migrate": "prisma migrate dev",
       "seed": "ts-node-dev ./prisma/seed.ts"
    }
 }

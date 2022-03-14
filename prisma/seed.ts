@@ -43,7 +43,40 @@ async function main() {
       }
   });
 
-  console.log({ document1 });
+  const document2 = await prisma.document.create({
+    data: {
+        sbrId: "A02",
+        orRequestor: "Logan Laughery",
+        orRequestDate: new Date(),
+        fileName: "Test2.pdf",
+        pages: 1,
+        path: "test/Test.pdf",
+        driveId: "tjklsflkjsfljsfl",
+        personnel: {
+            create: [
+                {
+                    firstName: "Logan",
+                    lastName: "Laughery",
+                    email: "test@email.com"
+                }
+            ]
+        },
+        emailDetails: {
+            create: {
+                subject: "Test Email",
+                from: "test@email.com",
+                to: "test@email.com"
+            }
+        },
+        documentContent: {
+          create: {
+              text: "This is a test message"
+          }
+        }
+    }
+});
+
+  console.log({ document1, document2 });
 //   await prisma.post.deleteMany({});
 //   await prisma.user.deleteMany({});
 
