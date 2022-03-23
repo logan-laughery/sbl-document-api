@@ -45,6 +45,8 @@ model EmailDetails {
 model DocumentContent {
   id String @id @default(cuid())
   textSearch  Unsupported("TSVECTOR")?
+  text  String? @db.Text
+  file  Bytes?
   document Document @relation(fields: [documentId], references: [id])
   documentId String
   @@index([textSearch])
