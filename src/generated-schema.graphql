@@ -51,6 +51,22 @@ type AggregateUser {
   _min: UserMinAggregate
 }
 
+"""The `Byte` scalar type represents byte value as a Buffer"""
+scalar Byte
+
+input BytesNullableFilter {
+  equals: Byte
+  not: NestedBytesNullableFilter
+}
+
+input BytesNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedBytesNullableFilter
+  _min: NestedBytesNullableFilter
+  equals: Byte
+  not: NestedBytesNullableWithAggregatesFilter
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -143,28 +159,38 @@ input DocumentAvgOrderByAggregateInput {
 type DocumentContent {
   document: Document!
   documentId: String!
+  file: Byte
   id: String!
+  text: String
 }
 
 type DocumentContentCountAggregate {
   _all: Int!
   documentId: Int!
+  file: Int!
   id: Int!
+  text: Int!
 }
 
 input DocumentContentCountOrderByAggregateInput {
   documentId: SortOrder
+  file: SortOrder
   id: SortOrder
+  text: SortOrder
 }
 
 input DocumentContentCreateInput {
   document: DocumentCreateNestedOneWithoutDocumentContentInput!
+  file: Byte
   id: String
+  text: String
 }
 
 input DocumentContentCreateManyInput {
   documentId: String!
+  file: Byte
   id: String
+  text: String
 }
 
 input DocumentContentCreateNestedOneWithoutDocumentInput {
@@ -179,7 +205,9 @@ input DocumentContentCreateOrConnectWithoutDocumentInput {
 }
 
 input DocumentContentCreateWithoutDocumentInput {
+  file: Byte
   id: String
+  text: String
 }
 
 type DocumentContentGroupBy {
@@ -187,27 +215,37 @@ type DocumentContentGroupBy {
   _max: DocumentContentMaxAggregate
   _min: DocumentContentMinAggregate
   documentId: String!
+  file: Byte
   id: String!
+  text: String
 }
 
 type DocumentContentMaxAggregate {
   documentId: String
+  file: Byte
   id: String
+  text: String
 }
 
 input DocumentContentMaxOrderByAggregateInput {
   documentId: SortOrder
+  file: SortOrder
   id: SortOrder
+  text: SortOrder
 }
 
 type DocumentContentMinAggregate {
   documentId: String
+  file: Byte
   id: String
+  text: String
 }
 
 input DocumentContentMinOrderByAggregateInput {
   documentId: SortOrder
+  file: SortOrder
   id: SortOrder
+  text: SortOrder
 }
 
 input DocumentContentOrderByWithAggregationInput {
@@ -215,13 +253,17 @@ input DocumentContentOrderByWithAggregationInput {
   _max: DocumentContentMaxOrderByAggregateInput
   _min: DocumentContentMinOrderByAggregateInput
   documentId: SortOrder
+  file: SortOrder
   id: SortOrder
+  text: SortOrder
 }
 
 input DocumentContentOrderByWithRelationInput {
   document: DocumentOrderByWithRelationInput
   documentId: SortOrder
+  file: SortOrder
   id: SortOrder
+  text: SortOrder
 }
 
 input DocumentContentRelationFilter {
@@ -231,7 +273,9 @@ input DocumentContentRelationFilter {
 
 enum DocumentContentScalarFieldEnum {
   documentId
+  file
   id
+  text
 }
 
 input DocumentContentScalarWhereWithAggregatesInput {
@@ -239,16 +283,22 @@ input DocumentContentScalarWhereWithAggregatesInput {
   NOT: [DocumentContentScalarWhereWithAggregatesInput!]
   OR: [DocumentContentScalarWhereWithAggregatesInput!]
   documentId: StringWithAggregatesFilter
+  file: BytesNullableWithAggregatesFilter
   id: StringWithAggregatesFilter
+  text: StringNullableWithAggregatesFilter
 }
 
 input DocumentContentUpdateInput {
   document: DocumentUpdateOneRequiredWithoutDocumentContentInput
+  file: NullableBytesFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpdateManyMutationInput {
+  file: NullableBytesFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpdateOneWithoutDocumentInput {
@@ -262,7 +312,9 @@ input DocumentContentUpdateOneWithoutDocumentInput {
 }
 
 input DocumentContentUpdateWithoutDocumentInput {
+  file: NullableBytesFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  text: NullableStringFieldUpdateOperationsInput
 }
 
 input DocumentContentUpsertWithoutDocumentInput {
@@ -276,7 +328,9 @@ input DocumentContentWhereInput {
   OR: [DocumentContentWhereInput!]
   document: DocumentRelationFilter
   documentId: StringFilter
+  file: BytesNullableFilter
   id: StringFilter
+  text: StringNullableFilter
 }
 
 input DocumentContentWhereUniqueInput {
@@ -1235,6 +1289,19 @@ type Mutation {
   upsertUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
+input NestedBytesNullableFilter {
+  equals: Byte
+  not: NestedBytesNullableFilter
+}
+
+input NestedBytesNullableWithAggregatesFilter {
+  _count: NestedIntNullableFilter
+  _max: NestedBytesNullableFilter
+  _min: NestedBytesNullableFilter
+  equals: Byte
+  not: NestedBytesNullableWithAggregatesFilter
+}
+
 input NestedDateTimeFilter {
   equals: DateTime
   gt: DateTime
@@ -1421,6 +1488,10 @@ input NestedStringWithAggregatesFilter {
   not: NestedStringWithAggregatesFilter
   notIn: [String!]
   startsWith: String
+}
+
+input NullableBytesFieldUpdateOperationsInput {
+  set: Byte
 }
 
 input NullableDateTimeFieldUpdateOperationsInput {
