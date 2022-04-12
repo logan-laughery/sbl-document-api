@@ -1,0 +1,12 @@
+[Service]
+ExecStart=npm run prod-start --prefix /usr/share/sbr/sbr-document-api
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sbr-document-api
+User=sbr-document-api
+Group=sbr-document-api
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

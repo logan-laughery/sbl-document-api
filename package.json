@@ -35,6 +35,7 @@
    },
    "scripts": {
       "start": "ts-node-dev --respawn src/index.ts",
+      "prod-start": "ts-node --transpile-only src/index.ts",
       "generate": "prisma generate",
       "create-migration": "prisma migrate dev --create-only",
       "migrate": "prisma migrate dev",
