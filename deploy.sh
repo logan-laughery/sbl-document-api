@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npm ci
+npm ci --unsafe-perm=true --allow-root
