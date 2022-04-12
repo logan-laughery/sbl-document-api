@@ -4,8 +4,8 @@ Restart=always
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=sbr-document-api
-User=sbr-document-api
-Group=sbr-document-api
+User=ci
+Group=ci
 Environment=NODE_ENV=production
 
 [Install]
