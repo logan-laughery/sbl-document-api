@@ -1,5 +1,5 @@
 [Service]
-ExecStart=npm run prod-start --prefix /usr/share/sbr/sbr-document-api
+ExecStart=/home/logan/.nvm/versions/node/v17.9.0/bin/npm run prod-start --prefix /usr/share/sbr/sbr-document-api
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
