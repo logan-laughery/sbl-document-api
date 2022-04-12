@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo "Test Deployment Script"
+npm ci
