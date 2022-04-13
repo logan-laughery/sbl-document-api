@@ -1,12 +1,10 @@
 [Service]
-ExecStart=/home/logan/.nvm/versions/node/v17.9.0/bin/npm run prod-start --prefix /usr/share/sbr/sbr-document-api
+ExecStart=/usr/share/sbr/sbr-document-api/start.sh
 Restart=always
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=sbr-document-api
 Environment=NODE_ENV=production
-User=logan
-Group=logan
 
 [Install]
 WantedBy=multi-user.target
