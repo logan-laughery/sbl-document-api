@@ -5,6 +5,8 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=sbr-document-api
 Environment=NODE_ENV=production
+User=logan
+Group=logan
 
 [Install]
 WantedBy=multi-user.target
