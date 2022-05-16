@@ -1,6 +1,6 @@
 import { buildSchema } from "type-graphql";
 import * as path from "path";
-// import { resolvers } from "../prisma/generated/type-graphql";
+import { resolvers } from "../prisma/generated/type-graphql";
 import {
   FindUniqueDocumentResolver,
   FindManyDocumentResolver,
@@ -14,7 +14,8 @@ export const createSchema = async () =>
       FindUniqueDocumentResolver,
       FindManyDocumentResolver,
       ...relationResolvers,
-      ...documentResolvers
+      ...documentResolvers,
+      ...resolvers
     ],
     // emitSchemaFile: path.resolve(__dirname, "./generated-schema.graphql")
   });
