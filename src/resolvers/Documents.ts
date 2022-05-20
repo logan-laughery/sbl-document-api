@@ -79,13 +79,19 @@ function getWhereCondition(where: DocumentWhereInput) : String {
   if (where) {
     Object.keys(where).forEach(column => {
       Object.keys(where[column]).forEach(comparison => {
+        const columnValues = {
+          'beginDate': () => `'${where[column][comparison].toISOString().slice(0, 10)}'::date`,
+          'endDate': () => `'${where[column][comparison].toISOString().slice(0, 10)}'::date`
+        };
+
         const comparisons = {
           'lt': '<',
           'equals': '=',
-          'gt': '>'
+          'gt': '>',
+          'isNull': ' IS NULL'
         };
 
-        const value = column === 'orRequestDate' ? `'${where[column][comparison].toISOString().slice(0, 10)}'::date` : '${where[column][comparison]}';
+        const value = columnValues[column] ? columnValues[column]() : `'${where[column][comparison]}'`;
 
         whereCondition.push(` AND a."${column}" ${comparisons[comparison]} ${value}`);
       });
@@ -129,6 +135,8 @@ class CustomDocumentResolver {
 
     return result.map(row => ({
       ...row,
+      beginDate: new Date(row.beginDate),
+      endDate: new Date(row.endDate),
       orRequestDate: new Date(row.orRequestDate)
     }));
   }

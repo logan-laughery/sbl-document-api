@@ -26,7 +26,8 @@ model Document {
   personnel      Personnel[]
   topics         Topic[]
   summary        String?
-  driveId        String
+  driveId        String?
+  driveFilePath  String?
   emailDetails   EmailDetails?
   documentContent DocumentContent?
 }
