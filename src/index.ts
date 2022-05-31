@@ -40,7 +40,7 @@ const startServer = async () => {
     },
   });
 
-  app.get('/documentFile/:id', cors(), async (req, res) => {
+  app.get('/api/documentFile/:id', cors(), async (req, res) => {
     const documentId = req.params.id;
 
     const documentContent = await fileReaderClient.documentContent.findUnique({
