@@ -1,6 +1,7 @@
 import { NonEmptyArray, Resolver, Query, Ctx, Info, Args, Field, Int, ObjectType, ArgsType } from "type-graphql";
 import { Document, DocumentWhereInput, DocumentOrderByWithRelationInput } from "../../prisma/generated/type-graphql";
 import { GraphQLResolveInfo } from "graphql";
+import * as GraphQLScalars from "graphql-scalars";
 
 const tsquerySpecialChars = /[()|:*!]/g;
 
@@ -30,6 +31,24 @@ class DocumentSearchResult extends Document {
     nullable: true
   })
   match?: string | null;
+}
+
+@ObjectType({
+  isAbstract: true
+})
+export class DocumentFile {
+  @Field(_type => GraphQLScalars.ByteResolver, {
+    nullable: true
+  })
+  file?: Buffer | null;
+}
+
+@ArgsType()
+class DocumentFileInputArgs {
+  @Field(_type => String, {
+    nullable: false
+  })
+  documentId: string | undefined;
 }
 
 @ArgsType()
@@ -167,6 +186,21 @@ class CustomDocumentResolver {
     `);
 
     return result[0];
+  }
+
+  @Query(returns => DocumentFile, { nullable: false })
+  async getDocumentFile(@Ctx() { prisma }: any, @Info() info: GraphQLResolveInfo, @Args() args: DocumentFileInputArgs): Promise<DocumentFile> {
+    const {documentId} = args;
+    
+    const documentContent = await prisma.documentContent.findUnique({
+      where: {
+        documentId,
+      },
+    });
+
+    return {
+      file: documentContent.file
+    };
   }
 }
 

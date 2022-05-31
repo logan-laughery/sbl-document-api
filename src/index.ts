@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import express from "express";
+import cors from 'cors';
 import { ApolloServer } from "apollo-server-express";
 import { PrismaClient } from "@prisma/client";
 
@@ -14,6 +15,9 @@ interface Context {
 
 const startServer = async () => {
   const prisma = new PrismaClient();
+  const fileReaderClient = new PrismaClient();
+
+  await fileReaderClient.$connect();
   await prisma.$connect();
 
   const schema = await createSchema();
@@ -29,11 +33,23 @@ const startServer = async () => {
 
   server.applyMiddleware({
     app,
-    path: "/",
+    path: "/graphql",
     cors: {
       "origin": true,
       "credentials": true
     },
+  });
+
+  app.get('/documentFile/:id', cors(), async (req, res) => {
+    const documentId = req.params.id;
+
+    const documentContent = await fileReaderClient.documentContent.findUnique({
+      where: {
+        documentId,
+      },
+    });
+
+    res.send(documentContent.file);
   });
 
   app.listen({ port: serverPORT }, () =>
